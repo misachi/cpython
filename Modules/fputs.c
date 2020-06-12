@@ -1,14 +1,13 @@
 #include <Python.h>
 
 static PyObject *write_to_file(PyObject *self, PyObject *args){
-    FILE *filename = NULL;
-    const char *str = NULL;
+    const char *str, *filename = NULL;
     int bytes;
     if (!PyArg_ParseTuple(args, "ss", &filename, &str))
         return NULL;
 
     FILE *f = fopen(filename, "w");
-    bytes = fputs(str, filename);
+    bytes = fputs(str, f);
     fclose(f);
 
     return PyLong_FromLong(bytes);
@@ -27,7 +26,6 @@ static struct PyModuleDef wtfmodule = {
     wtfmethods
 };
 
-PyMODINIT_FUNC PyInit_memcopy(void) {
+PyMODINIT_FUNC PyInit_wtf(void) {
     return PyModule_Create(&wtfmodule);
 }
-
