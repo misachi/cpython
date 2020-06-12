@@ -2,9 +2,10 @@
 
 static PyObject *memcopy(PyObject *self, PyObject *args) {
     int count;
-    char *str1, str2;
+    char *str1;
+    const char* str2;
 
-    if(!PyArg_ParseTuple(self, "ssi", &str1, &str2, &count))
+    if(!PyArg_ParseTuple(args, "ssi", &str1, &str2, &count))
         return NULL;
     
     memcpy(str1, str2, count);
