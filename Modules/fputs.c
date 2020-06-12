@@ -1,14 +1,17 @@
 #include <Python.h>
 
 static PyObject *write_to_file(PyObject *self, PyObject *args){
-    FILE *filename;
-    const char *str;
+    FILE *filename = NULL;
+    const char *str = NULL;
     int bytes;
     if (!PyArg_ParseTuple(args, "ss", &filename, &str))
         return NULL;
-    
+
+    FILE *f = fopen(filename, "w");
     bytes = fputs(str, filename);
-    return PyLong_AsLong(bytes);
+    fclose(f);
+
+    return PyLong_FromLong(bytes);
 }
 
 static PyMethodDef wtfmethods [] = {
