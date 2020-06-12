@@ -4,7 +4,7 @@ static PyObject *write_to_file(PyObject *self, PyObject *args){
     FILE *filename;
     const char *str;
     int bytes;
-    if (!PyArg_ParseTuple(args, "ss", filename, str))
+    if (!PyArg_ParseTuple(args, "ss", &filename, &str))
         return NULL;
     
     bytes = fputs(str, filename);
